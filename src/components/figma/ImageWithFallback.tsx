@@ -12,6 +12,18 @@ export function ImageWithFallback(props: React.ImgHTMLAttributes<HTMLImageElemen
 
   const { src, alt, style, className, ...rest } = props
 
+  // Fix for malformed placeholder URLs (missing domain or protocol)
+  let finalSrc = src
+  if (src && !src.startsWith('http') && !src.startsWith('data:')) {
+    // Check if it looks like a color code + query params (e.g. "FFFFFF?text=...")
+    if (src.match(/^[0-9A-Fa-f]{6}\?text=/)) {
+      finalSrc = `https://via.placeholder.com/300x400/${src}`
+    }
+  } else if (src && src.startsWith('via.placeholder.com')) {
+    // Fix URLs missing https://
+    finalSrc = `https://${src}`
+  }
+
   return didError ? (
     <div
       className={`inline-block bg-gray-100 text-center align-middle ${className ?? ''}`}
@@ -22,6 +34,6 @@ export function ImageWithFallback(props: React.ImgHTMLAttributes<HTMLImageElemen
       </div>
     </div>
   ) : (
-    <img src={src} alt={alt} className={className} style={style} {...rest} onError={handleError} />
+    <img src={finalSrc} alt={alt} className={className} style={style} {...rest} onError={handleError} />
   )
 }
