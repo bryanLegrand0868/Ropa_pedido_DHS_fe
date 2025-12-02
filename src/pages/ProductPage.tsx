@@ -93,8 +93,8 @@ export default function ProductPage() {
 
                         {/* Size Selector */}
                         <div className="mb-8">
-                            <p className="text-sm font-medium text-[#6B5B52] mb-3">
-                                Talla: <span className="font-bold">{selectedSize || '-'}</span>
+                            <p className="text-sm font-medium text-gray-600 mb-3">
+                                TALLA: <span className="font-bold text-black">{selectedSize || 'M'}</span>
                             </p>
                             <div className="flex flex-wrap gap-3">
                                 {product.available_sizes?.map((size) => (
@@ -102,10 +102,10 @@ export default function ProductPage() {
                                         key={size}
                                         onClick={() => setSelectedSize(size)}
                                         className={cn(
-                                            "min-w-[60px] px-5 py-2.5 text-sm font-semibold border transition-all duration-200",
+                                            "min-w-[56px] h-[44px] px-4 text-sm font-medium transition-all duration-200",
                                             selectedSize === size
-                                                ? "bg-white text-black border-black border-2"
-                                                : "bg-white text-gray-500 border-gray-300 hover:border-gray-400"
+                                                ? "bg-white text-black border-2 border-black"
+                                                : "bg-white text-gray-600 border border-gray-300 hover:border-gray-400"
                                         )}
                                     >
                                         {size}

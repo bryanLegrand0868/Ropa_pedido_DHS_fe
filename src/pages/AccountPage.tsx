@@ -6,7 +6,7 @@ import { Input } from '@/components/common/Input'
 import { ErrorMessage } from '@/components/common/ErrorMessage'
 import { LoadingSpinner } from '@/components/common/LoadingSpinner'
 import { Link, useNavigate } from 'react-router-dom'
-import { User, LogOut, Package } from 'lucide-react'
+import { User, LogOut, Package, Home } from 'lucide-react'
 import toast from 'react-hot-toast'
 
 export default function AccountPage() {
@@ -90,15 +90,26 @@ export default function AccountPage() {
                         </Button>
                     </div>
 
-                    <Link to="/my-orders">
-                        <Button
-                            variant="outline"
-                            className="w-full border-[#E8DED5] text-[#6B5B52] hover:bg-[#F5EDE7]"
-                        >
-                            <Package className="w-4 h-4 mr-2" />
-                            Ver Mis Pedidos
-                        </Button>
-                    </Link>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <Link to="/">
+                            <Button
+                                variant="outline"
+                                className="w-full border-[#E8DED5] text-[#6B5B52] hover:bg-[#F5EDE7]"
+                            >
+                                <Home className="w-4 h-4 mr-2" />
+                                Volver al Inicio
+                            </Button>
+                        </Link>
+                        <Link to="/my-orders">
+                            <Button
+                                variant="outline"
+                                className="w-full border-[#E8DED5] text-[#6B5B52] hover:bg-[#F5EDE7]"
+                            >
+                                <Package className="w-4 h-4 mr-2" />
+                                Ver Mis Pedidos
+                            </Button>
+                        </Link>
+                    </div>
                 </div>
 
                 {/* Profile Form */}
