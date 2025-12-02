@@ -89,11 +89,12 @@ export default function AdminOrders() {
             <h1 className="text-2xl font-bold text-gray-900 mb-6">Gestión de Pedidos</h1>
 
             <div className="bg-white p-4 rounded-lg shadow-sm mb-6">
-                <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                <div className="relative flex items-center">
+                    <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
                     <Input
                         placeholder="Buscar por cliente o ID..."
-                        className="pl-10"
+                        className="w-full"
+                        style={{ paddingLeft: '2rem' }}
                         value={searchTerm}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
                     />

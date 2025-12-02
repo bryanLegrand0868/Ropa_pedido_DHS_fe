@@ -1,11 +1,11 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { useProducts } from '@/hooks/useProducts'
 import { ProductCard } from '@/components/product/ProductCard'
 import { LoadingSpinner } from '@/components/common/LoadingSpinner'
 import { ErrorMessage } from '@/components/common/ErrorMessage'
 import { Link, useNavigate } from 'react-router-dom'
 import { ShoppingCart, User, LogOut } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/common/Button'
 import { useAuthStore } from '@/stores/useAuthStore'
 import {
     DropdownMenu,
@@ -18,9 +18,14 @@ import {
 
 export default function Home() {
     const { products, loading, error } = useProducts()
-    const { user, signOut } = useAuthStore()
+    const { user, checkAuth, signOut } = useAuthStore()
     const navigate = useNavigate()
     const [selectedCategory, setSelectedCategory] = useState<string>('Todos')
+
+    // Check auth state on mount
+    useEffect(() => {
+        checkAuth()
+    }, [checkAuth])
 
     // Extract unique categories
     const categories = useMemo(() => {
@@ -70,14 +75,14 @@ export default function Home() {
                                                 Mi Cuenta
                                             </DropdownMenuLabel>
                                             <DropdownMenuSeparator />
-                                            <DropdownMenuItem asChild>
-                                                <Link to="/account" className="cursor-pointer">
+                                            <DropdownMenuItem asChild className="cursor-pointer">
+                                                <Link to="/account" className="flex items-center w-full">
                                                     <User className="w-4 h-4 mr-2" />
                                                     Mi Perfil
                                                 </Link>
                                             </DropdownMenuItem>
-                                            <DropdownMenuItem asChild>
-                                                <Link to="/my-orders" className="cursor-pointer">
+                                            <DropdownMenuItem asChild className="cursor-pointer">
+                                                <Link to="/my-orders" className="flex items-center w-full">
                                                     <ShoppingCart className="w-4 h-4 mr-2" />
                                                     Mis Pedidos
                                                 </Link>

@@ -97,21 +97,22 @@ export default function AdminProducts() {
             </div>
 
             <div className="bg-white p-4 rounded-lg shadow-sm mb-6">
-                <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                <div className="relative flex items-center">
+                    <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
                     <Input
                         placeholder="Buscar productos..."
-                        className="pl-10"
+                        className="w-full"
+                        style={{ paddingLeft: '2.5rem' }}
                         value={searchTerm}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
                     />
                 </div>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                 {filteredProducts.map((product: any) => (
-                    <div key={product.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-                        <div className="aspect-square relative bg-gray-100">
+                    <div key={product.id} className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                        <div className="aspect-[3/4] relative bg-gray-100">
                             {product.image_url ? (
                                 <img
                                     className="w-full h-full object-cover"
@@ -120,41 +121,40 @@ export default function AdminProducts() {
                                 />
                             ) : (
                                 <div className="w-full h-full flex items-center justify-center">
-                                    <ImageIcon className="h-12 w-12 text-gray-300" />
+                                    <ImageIcon className="h-10 w-10 text-gray-300" />
                                 </div>
                             )}
                         </div>
 
                         <div className="p-3">
                             <h3 className="text-sm font-semibold text-gray-900 mb-1 line-clamp-1">{product.name}</h3>
-                            <p className="text-xs text-gray-500 mb-2 line-clamp-2">{product.description}</p>
+                            <p className="text-xs text-gray-500 mb-2 line-clamp-1">{product.description}</p>
 
                             <div className="flex items-center justify-between mb-2">
-                                <span className="text-lg font-bold text-[#D4A59A]">{formatPrice(product.price)}</span>
-                                <span className={`px-2 py-0.5 text-xs font-semibold rounded-full ${product.is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                                <span className="text-base font-bold text-[#D4A59A]">{formatPrice(product.price)}</span>
+                                <span className={`px-1.5 py-0.5 text-xs font-semibold rounded-full ${product.is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
                                     {product.is_active ? 'Activo' : 'Inactivo'}
                                 </span>
                             </div>
 
-                            <div className="mb-2 text-xs text-gray-500">
-                                <p className="truncate">Cat: <span className="font-medium text-gray-700">{product.category}</span></p>
+                            <div className="mb-2 text-xs text-gray-500 space-y-0.5">
+                                <p className="truncate"><span className="font-medium text-gray-700">{product.category}</span></p>
                                 <p className="truncate">Tallas: <span className="font-medium text-gray-700">{product.available_sizes?.join(', ')}</span></p>
                             </div>
 
-                            <div className="flex gap-1">
+                            <div className="flex gap-1.5">
                                 <button
                                     onClick={() => handleEdit(product)}
-                                    className="flex-1 flex items-center justify-center gap-1 px-2 py-1.5 bg-[#D4A59A] text-white text-xs rounded-lg hover:bg-[#C49585] transition-colors"
+                                    className="flex-1 flex items-center justify-center gap-1 px-2 py-1.5 bg-[#D4A59A] text-white text-xs font-medium rounded-lg hover:bg-[#C49585] transition-colors"
                                 >
                                     <Edit className="h-3 w-3" />
                                     Editar
                                 </button>
                                 <button
                                     onClick={() => handleDelete(product.id)}
-                                    className="flex-1 flex items-center justify-center gap-1 px-2 py-1.5 bg-white border border-red-500 text-red-500 text-xs rounded-lg hover:bg-red-50 transition-colors"
+                                    className="px-2 py-1.5 bg-white border border-red-500 text-red-500 rounded-lg hover:bg-red-50 transition-colors"
                                 >
                                     <Trash2 className="h-3 w-3" />
-                                    Eliminar
                                 </button>
                             </div>
                         </div>

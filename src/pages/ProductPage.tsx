@@ -6,8 +6,8 @@ import { Product } from '@/types'
 import { Button } from '@/components/common/Button'
 import { LoadingSpinner } from '@/components/common/LoadingSpinner'
 import { ErrorMessage } from '@/components/common/ErrorMessage'
-import { formatPrice } from '@/lib/utils'
-import { ArrowLeft, ShoppingCart } from 'lucide-react'
+import { cn, formatPrice } from '@/lib/utils'
+import { ArrowLeft, ChevronDown, ShoppingCart } from 'lucide-react'
 import toast from 'react-hot-toast'
 
 export default function ProductPage() {
@@ -19,7 +19,8 @@ export default function ProductPage() {
     const [product, setProduct] = useState<Product | null>(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
-    const [selectedSize, setSelectedSize] = useState<string | null>(null)
+    const [selectedSize, setSelectedSize] = useState<string>('')
+    const [isDetailsOpen, setIsDetailsOpen] = useState(false)
 
     useEffect(() => {
         const loadProduct = async () => {
@@ -81,31 +82,31 @@ export default function ProductPage() {
 
                     {/* Product Info */}
                     <div className="flex flex-col">
-                        <h1 className="text-3xl font-bold text-gray-900 mb-2 font-serif">{product.name}</h1>
+                        <h1 className="text-3xl font-bold text-gray-900 mb-2 font-serif">
+                            {product.name}
+                        </h1>
                         <p className="text-sm text-gray-500 mb-6">{product.category}</p>
 
-                        <p className="text-2xl font-semibold text-primary mb-8">
+                        <p className="text-2xl font-semibold text-[#D4A59A] mb-8">
                             {formatPrice(product.price)}
                         </p>
 
-                        <div className="prose prose-sm text-gray-600 mb-8">
-                            <p>{product.description}</p>
-                        </div>
-
                         {/* Size Selector */}
                         <div className="mb-8">
-                            <h3 className="text-sm font-medium text-gray-900 mb-4">Tallas Disponibles</h3>
+                            <p className="text-sm font-medium text-[#6B5B52] mb-3">
+                                Talla: <span className="font-bold">{selectedSize || '-'}</span>
+                            </p>
                             <div className="flex flex-wrap gap-3">
                                 {product.available_sizes?.map((size) => (
                                     <button
                                         key={size}
                                         onClick={() => setSelectedSize(size)}
-                                        className={`
-                      w-12 h-12 rounded-full flex items-center justify-center border transition-all
-                      ${selectedSize === size
-                                                ? 'border-primary bg-primary text-white'
-                                                : 'border-gray-200 hover:border-primary text-gray-900'}
-                    `}
+                                        className={cn(
+                                            "min-w-[60px] px-5 py-2.5 text-sm font-semibold border transition-all duration-200",
+                                            selectedSize === size
+                                                ? "bg-white text-black border-black border-2"
+                                                : "bg-white text-gray-500 border-gray-300 hover:border-gray-400"
+                                        )}
                                     >
                                         {size}
                                     </button>
@@ -113,6 +114,33 @@ export default function ProductPage() {
                             </div>
                             {!selectedSize && (
                                 <p className="text-sm text-red-500 mt-2">Por favor selecciona una talla</p>
+                            )}
+                        </div>
+
+                        {/* Divider */}
+                        <div className="border-t border-gray-200 my-6"></div>
+
+                        {/* Accordion para Descripción/Detalles */}
+                        <div className="border-b border-gray-200">
+                            <button
+                                onClick={() => setIsDetailsOpen(!isDetailsOpen)}
+                                className="w-full flex items-center justify-between py-4 text-left hover:bg-gray-50 transition-colors"
+                            >
+                                <span className="text-sm font-semibold text-[#6B5B52] uppercase tracking-wide">
+                                    Detalles
+                                </span>
+                                <ChevronDown
+                                    className={cn(
+                                        "w-5 h-5 text-gray-500 transition-transform duration-200",
+                                        isDetailsOpen && "rotate-180"
+                                    )}
+                                />
+                            </button>
+
+                            {isDetailsOpen && (
+                                <div className="pb-4 text-sm text-[#6B5B52] leading-relaxed">
+                                    <p>{product.description}</p>
+                                </div>
                             )}
                         </div>
 

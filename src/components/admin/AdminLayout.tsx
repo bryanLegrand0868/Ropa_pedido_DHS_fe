@@ -53,11 +53,10 @@ export default function AdminLayout() {
                     <div className="flex items-center justify-between h-16">
                         {/* Logo/Title */}
                         <div className="flex-shrink-0">
-                            <span className="text-xl font-bold text-gray-900">Ropa Artesanal</span>
+                            <span className="text-xl font-bold text-gray-900">DEHESA</span>
                         </div>
-
                         {/* Navigation Tabs */}
-                        <nav className="flex space-x-2">
+                        <nav className="flex space-x-3">
                             {navigation.map((item) => {
                                 const isActive = location.pathname === item.href
                                 return (
@@ -65,13 +64,16 @@ export default function AdminLayout() {
                                         key={item.name}
                                         to={item.href}
                                         className={cn(
-                                            "flex items-center gap-2 px-8 py-2.5 rounded-full text-sm font-semibold transition-colors",
+                                            "flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold transition-all duration-200",
                                             isActive
-                                                ? "bg-[#D4A59A] text-white shadow-sm"
-                                                : "bg-white text-gray-700 hover:bg-[#F5EDE7] border border-gray-200"
+                                                ? "bg-[#D4A59A] text-white shadow-md scale-105"
+                                                : "bg-white text-gray-700 hover:bg-[#F5EDE7] hover:scale-105 border border-gray-200 hover:border-[#E8DED5] hover:shadow-sm"
                                         )}
                                     >
-                                        <item.icon className="h-4 w-4" />
+                                        <item.icon className={cn(
+                                            "h-4 w-4 transition-transform",
+                                            isActive && "scale-110"
+                                        )} />
                                         {item.name}
                                     </Link>
                                 )
