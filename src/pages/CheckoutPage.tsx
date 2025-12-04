@@ -161,7 +161,8 @@ export default function CheckoutPage() {
                                 <ul className="-my-4 divide-y divide-gray-200">
                                     {items.map((item) => (
                                         <li key={`${item.productId}-${item.size}`} className="py-4 flex">
-                                            <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                            {/* Image: 80x120px */}
+                                            <div className="w-20 h-[120px] flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                                 {item.image_url && (
                                                     <img
                                                         src={item.image_url}

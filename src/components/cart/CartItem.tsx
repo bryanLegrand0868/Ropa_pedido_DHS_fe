@@ -14,7 +14,8 @@ export const CartItem = ({ item }: CartItemProps) => {
 
     return (
         <div className="flex py-6 border-b border-gray-200 last:border-0">
-            <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+            {/* Image: 80x120px */}
+            <div className="w-20 h-[120px] flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                 {item.image_url ? (
                     <img
                         src={item.image_url}
@@ -39,20 +40,21 @@ export const CartItem = ({ item }: CartItemProps) => {
                     <p className="mt-1 text-sm text-gray-500">Talla: {item.size}</p>
                 </div>
                 <div className="flex flex-1 items-end justify-between text-sm">
-                    <div className="flex items-center border rounded-md">
+                    {/* Quantity Selector: 102x32px */}
+                    <div className="flex items-center border rounded-md" style={{ width: '102px', height: '32px' }}>
                         <button
-                            className="p-1 hover:bg-gray-100"
+                            className="flex items-center justify-center w-8 h-full hover:bg-gray-100 transition-colors"
                             onClick={() => updateQuantity(item.productId, item.size, item.quantity - 1)}
                             disabled={item.quantity <= 1}
                         >
-                            <Minus size={16} />
+                            <Minus size={14} />
                         </button>
-                        <span className="px-2 font-medium">{item.quantity}</span>
+                        <span className="flex-1 text-center font-medium text-sm">{item.quantity}</span>
                         <button
-                            className="p-1 hover:bg-gray-100"
+                            className="flex items-center justify-center w-8 h-full hover:bg-gray-100 transition-colors"
                             onClick={() => updateQuantity(item.productId, item.size, item.quantity + 1)}
                         >
-                            <Plus size={16} />
+                            <Plus size={14} />
                         </button>
                     </div>
 

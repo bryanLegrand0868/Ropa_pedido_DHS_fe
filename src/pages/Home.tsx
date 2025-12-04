@@ -52,8 +52,8 @@ export default function Home() {
                     <div className="flex flex-col gap-6">
                         {/* Title */}
                         <div className="flex justify-between items-center">
-                            <h1 className="text-2xl font-bold text-[#D4A59A] tracking-wider">
-                                NENI EMPRENDEDORA
+                            <h1 className="text-3xl font-black text-[#D4A59A] tracking-widest font-serif">
+                                DEHESA
                             </h1>
 
                             <div className="flex items-center gap-2">
